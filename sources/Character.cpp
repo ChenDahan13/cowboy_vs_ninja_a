@@ -84,8 +84,8 @@ void Ninja::move(const Character* enemy) {
 }
 
 void Ninja::slash(Character* enemy) {
-    int dist = this->distance(enemy);
-    if(dist < 1 && this->isAlive()) {
+    double dist = this->distance(enemy);
+    if(dist < 1.0 && this->isAlive()) {
         enemy->hit(40);
     }
 }

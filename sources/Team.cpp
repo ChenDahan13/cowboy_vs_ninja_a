@@ -4,6 +4,10 @@ Team::Team(Character* character): freeIndex(1), leader(0) {
     this->team[0] = character;
 }
 
+Team::Team(const Team& other) {
+    cout << "Copy constructor" << endl;
+}
+
 Team::~Team() {
     cout << "Destructor" << endl;
 }
@@ -18,7 +22,7 @@ void Team::attack(Team* enemies) {
 
 int Team::stillAlive() {
     cout << "Still alive" << endl;
-    return 1;
+    return 0;
 }
 
 void Team::print() {

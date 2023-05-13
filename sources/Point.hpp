@@ -11,10 +11,12 @@ namespace ariel {
         double y;
 
         public:
-            Point(double x = 0, double y = 0);
+            Point(double xcor = 0, double ycor = 0);
+            double getX();
+            double getY();
             double distance(const Point& other);
             string print();
-            Point moveTowards(const Point& srce, const Point& dest, double distance);
+            Point moveTowards(const Point& dest, double distance);
 
     };
 }
