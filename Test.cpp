@@ -21,11 +21,11 @@ TEST_CASE("Point class tests") {
 
     Point p3(0.0, 0.0), p4(3.0, 4.0);
 
-    Point p5 = p3.moveTowards(p4, 2.0);
+    Point p5 = Point::moveTowards(p3 ,p4, 2.0);
     CHECK(p5.getX() == 1.2);
     CHECK(p5.getY() == 1.6);
 
-    Point p6 = p3.moveTowards(p4, 5.0);
+    Point p6 = Point::moveTowards(p3, p4, 5.0);
     CHECK(p6.getX() == 3.0);
     CHECK(p6.getY() == 4.0);
 
@@ -34,7 +34,11 @@ TEST_CASE("Point class tests") {
 TEST_CASE("Cowboy class tests") {
     Point p1(0.0,0.0), p2(3.0,4.0);
     Cowboy *Chen = new Cowboy("Chen", p1);
-    Cowboy *Nadav = new Cowboy("Chen", p2);
+    Cowboy *Nadav = new Cowboy("Nadav", p2);
+    
+    CHECK_EQ(Chen->getName(), "Chen");
+    CHECK_EQ(Nadav->getName(), "Nadav");
+    
     double dest = Chen->distance(Nadav);
     CHECK(dest == 5.0);
     CHECK(Chen->isAlive() == true);
@@ -42,7 +46,7 @@ TEST_CASE("Cowboy class tests") {
     CHECK(Nadav->isAlive() == true);
     CHECK(Nadav->hasboolets() == true);
 
-    for(int i=0; i < 6; i++)
+    for(int i = 0; i < 6; i++)
         Chen->shoot(Nadav);
     
     CHECK(Chen->hasboolets() == false);
@@ -52,24 +56,46 @@ TEST_CASE("Cowboy class tests") {
 
     CHECK(Chen->hasboolets() == true);
 
+    for(int i = 0; i < 5; i++)
+        Chen->shoot(Nadav);
+
+    CHECK(Chen->hasboolets() == true);
+    CHECK(Nadav->isAlive() == false);
+
+    CHECK_THROWS(Chen->shoot(Nadav)); // Character is already dead
+    CHECK_THROWS(Chen->shoot(Chen)); // Imposible situation
+    CHECK_THROWS(Chen->shoot(NULL)); // Imposible situation
+
 }
 
 TEST_CASE("Ninjas class tests") {
-    Point p1(0.0,0.0), p2(3.0,4.0);
+    Point p1(0.0,0.0), p2(3.0,4.0), p3(-1.0,-5.0);
     OldNinja* Chen = new OldNinja("Chen", p2);
     YoungNinja* Nadav = new YoungNinja("Nadav", p1);
+    TrainedNinja* Sesko = new TrainedNinja("Sesko", p3);
 
+    CHECK_EQ(Chen->getName(), "Chen");
+    CHECK_EQ(Nadav->getName(), "Nadav");
+    CHECK_EQ(Sesko->getName(), "Sesko");
+    
+    CHECK(Chen->getLocation().getX() == 0.0);
+    CHECK(Chen->getLocation().getY() == 0.0);
+    CHECK(Nadav->getLocation().getX() == 3.0);
+    CHECK(Nadav->getLocation().getY() == 4.0);
+    CHECK(Sesko->getLocation().getX() == -1.0);
+    CHECK(Sesko->getLocation().getY() == -5.0);
+    
     Nadav->move(Chen);
-    Point p3 = Nadav->getLocation();
-    CHECK(p3.getX() == 8.4);
-    CHECK(p3.getY() == 11.2);
+    Point p4 = Nadav->getLocation();
+    CHECK(p4.getX() == 8.4);
+    CHECK(p4.getY() == 11.2);
 
     delete Chen;
     delete Nadav;
 
-    Point p4(0.0,0.0), p5(0.5,0.5);
-    Chen = new OldNinja("Chen", p4);
-    Nadav = new YoungNinja("Nadav", p5);
+    Point p5(0.0,0.0), p6(0.5,0.5);
+    Chen = new OldNinja("Chen", p5);
+    Nadav = new YoungNinja("Nadav", p6);
 
     for(int i = 0; i < 3; i++) {
         Chen->slash(Nadav);

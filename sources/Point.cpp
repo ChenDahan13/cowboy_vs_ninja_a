@@ -22,7 +22,7 @@ string Point::print() {
     return str;
 }
 
-Point Point::moveTowards(const Point& dest, double distance) {
+Point Point::moveTowards(const Point& source, const Point& dest, double distance) {
     cout << "move toward" << endl;
     return Point(0,0);
 }

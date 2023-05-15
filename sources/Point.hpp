@@ -16,7 +16,7 @@ namespace ariel {
             double getY();
             double distance(const Point& other);
             string print();
-            Point moveTowards(const Point& dest, double distance);
+            static Point moveTowards(const Point& source, const Point& dest, double distance);
 
     };
 }

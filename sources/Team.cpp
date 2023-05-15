@@ -1,5 +1,6 @@
 #include "Team.hpp"
 
+/*----------- Team Class ------------*/
 Team::Team(Character* character): freeIndex(1), leader(0) {
     this->team[0] = character;
 }
@@ -28,4 +29,30 @@ int Team::stillAlive() {
 void Team::print() {
     cout << "Print" << endl;
 }
+/*------------------------------------*/
 
+
+/*----------- SmartTeam Class ------------*/
+SmartTeam::SmartTeam(Character* character): Team(character) {}
+
+void SmartTeam::attack(Team* enemies) {
+    cout << "Attack" << endl;
+}
+/*------------------------------------*/
+
+
+/*----------- Team2 Class ------------*/
+Team2::Team2(Character* character): Team(character) {}
+
+void Team2::add(Character* character) {
+    cout << "Add" << endl;
+}
+
+void Team2::attack(Team* enemies) {
+    cout << "Attack" << endl;
+}
+
+void Team2::print() {
+    cout << "Print" << endl;
+}
+/*------------------------------------*/
