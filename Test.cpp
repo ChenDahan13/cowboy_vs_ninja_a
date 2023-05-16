@@ -101,7 +101,13 @@ TEST_CASE("Ninjas class tests") {
         Chen->slash(Nadav);
     }  
 
-    CHECK(Nadav->isAlive() == false);  
+    CHECK(Nadav->isAlive() == false);
+
+    CHECK_THROWS(Chen->slash(Nadav)); // Character is already dead
+    CHECK_THROWS(Chen->slash(Chen)); // Imposible situation
+    
+    CHECK_THROWS(Chen->move(Nadav)); // Character is already dead
+    CHECK_THROWS(Chen->move(Chen)); // Imposible situation
 
 }
 
@@ -126,6 +132,27 @@ TEST_CASE("Team class tests") {
     }
 
     CHECK(teamB.stillAlive() == 0);
+
+    Cowboy *example1 = new Cowboy("example1", Point(0, 0));
+    Cowboy *example2 = new Cowboy("example2", Point(0, 0));
+    Cowboy *example3 = new Cowboy("example3", Point(0, 0));
+    Cowboy *example4 = new Cowboy("example4", Point(0, 0));
+    Cowboy *example5 = new Cowboy("example5", Point(0, 0));
+    Cowboy *example6 = new Cowboy("example6", Point(0, 0));
+    Cowboy *example7 = new Cowboy("example7", Point(0, 0));
+    Cowboy *example8 = new Cowboy("example8", Point(0, 0));
+    Cowboy *example9 = new Cowboy("example9", Point(0, 0));
+
+    teamA.add(example1);
+    teamA.add(example2);
+    teamA.add(example3);
+    teamA.add(example4);
+    teamA.add(example5);
+    teamA.add(example6);
+    teamA.add(example7);
+    teamA.add(example8);
+
+    CHECK_THROWS(teamA.add(example9)); // The team is full
 }
 
 
